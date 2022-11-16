@@ -10,7 +10,7 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],animation: .default) var items: FetchedResults<Item>
+    @FetchRequest(entity: Pedido.entity(),sortDescriptors: []) var pedidos: FetchedResults<Pedido>
            @State private var newPedidoID = ""
            @State private var newPedidoCliente = ""
            @State private var newPedidoArticulo = ""
@@ -24,11 +24,28 @@ struct ContentView: View {
            @State private var PedidoArticulo = ""
            @State private var PedidoFechaEntrega = ""
            @State private var PedidoDireccion = ""
+    
     var body: some View {
-        Text("Hello")
-            .padding()
+        VStack{
+            TextField("Agregar nuevo", text: self.$newPedidoID).multilineTextAlignment(.center)
+            Button("Agregar"){self.guardar()}
+            List{
+                ForEach(pedidos, id: \.self) { pedido in
+                    Text("\(pedido.cliente!)")
+            }
+            }
+        }
+            
+        
+    }
+    
+    func guardar(){
+        let newPedido = Pedido(context: self.context)
+        newPedido.cliente = newPedidoCliente
+        try? self.context.save()
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
