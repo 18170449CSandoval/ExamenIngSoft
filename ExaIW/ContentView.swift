@@ -16,6 +16,7 @@ struct ContentView: View {
     @State var estado = ""
     @State var fechaentrega = ""
     @State var total = ""
+    @State var newcodigo = ""
     @State var newarticulo = ""
     @State var newcliente = ""
     @State var newdireccion = ""
@@ -39,13 +40,15 @@ struct ContentView: View {
                     TextField("Total", text: self.$newtotal).multilineTextAlignment(.center)
 
                     Button("Guardar"){
-                        coreDM.guardarPedido(codigo: newcodigo, nombre: newnombre, precio: newprecio, existencia: newexistencia, categoria: newcategoria)
-                        newnombre = ""
+                        coreDM.guardarPedido(codigo: newcodigo, articulo: newarticulo, cliente: newcliente, direccion: newdireccion, estado: newestado, fechaentrega: newfechaentrega, total: newtotal)
                         newcodigo = ""
-                        newprecio = ""
-                        newexistencia = ""
-                        newcategoria = ""
-                        mostrarProductos()
+                        newarticulo = ""
+                        newcliente = ""
+                        newdireccion = ""
+                        newestado = ""
+                        newfechaentrega = ""
+                        newtotal = ""
+                        mostrarPedido()
                     }
                     }){
                     Text("Agregar")
@@ -61,14 +64,8 @@ struct ContentView: View {
                             seleccionado = pedido
                             codigo = pedido.id ?? ""
                         }
-                    }.onDelete(perform: {
-                        indexSet in
-                        indexSet.forEach({ index in
-                        let producto = prodArray[index]
-                            coreDM.borrarPedido(pedido: <#T##Pedido#>)
-                        mostrarPedido()
-                        })
-                    })
+                    }
+                    
                 }.padding()
                     .onAppear(perform: {mostrarPedido()})
             }
