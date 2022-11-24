@@ -25,6 +25,15 @@ struct ContentView: View {
     @State var newtotal = ""
     @State var seleccionado: Pedido?
     @State var prodArray = [Pedido]()
+    
+    @State var codigoped = ""
+    @State var articuloped = ""
+    @State var clienteped = ""
+    @State var direccionped = ""
+    @State var estadoped = ""
+    @State var fechaentregaped = ""
+    @State var totalped = ""
+    @State var isTapped = false
 
 
     var body: some View {
@@ -56,13 +65,29 @@ struct ContentView: View {
 
                 List{
                     ForEach(prodArray, id: \.self){
-                        pedido in
+                        ped in
                         VStack{
-                            Text(pedido.articulo ?? "")
+                            Text(ped.articulo ?? "")
                         }
                         .onTapGesture{
-                            seleccionado = pedido
-                            codigo = pedido.id ?? ""
+                            seleccionado = ped
+                            codigo = ped.idped ?? ""
+                            seleccionado = ped
+                            codigoped =
+                            ped.idped ?? ""
+                            articuloped =
+                            ped.articulo ?? ""
+                            clienteped =
+                            ped.cliente ?? ""
+                            direccionped =
+                            ped.direccion ?? ""
+                            estadoped =
+                            ped.estado ?? ""
+                            fechaentregaped =
+                            ped.fechaentrega ?? ""
+                            totalped =
+                            ped.total ?? ""
+                            isTapped.toggle()
                         }
                     }
                     

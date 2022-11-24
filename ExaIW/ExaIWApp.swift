@@ -11,7 +11,7 @@ import SwiftUI
 struct ExaIWApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(coreDM: CoreDataManager.init())
+            ContentView(coreDM: CoreDataManager())
         }
     }
 }

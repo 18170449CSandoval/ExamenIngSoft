@@ -6,7 +6,7 @@
         <attribute name="direccion" optional="YES" attributeType="String"/>
         <attribute name="estado" optional="YES" attributeType="String"/>
         <attribute name="fechaentrega" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="idped" optional="YES" attributeType="String"/>
         <attribute name="total" optional="YES" attributeType="String"/>
     </entity>
     <elements>

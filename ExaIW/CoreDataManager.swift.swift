@@ -23,7 +23,7 @@ class CoreDataManager{
 
     func guardarPedido(codigo: String, articulo: String, cliente: String, direccion: String, estado: String, fechaentrega: String, total: String){
         let pedido = Pedido(context: persistentContainer.viewContext)
-        pedido.id = codigo
+        pedido.idped = codigo
         pedido.articulo = articulo
         pedido.cliente = cliente
         pedido.direccion = direccion
@@ -64,7 +64,7 @@ class CoreDataManager{
 
     func actualizarpedido(pedido: Pedido){
         let fetchRequest: NSFetchRequest<Pedido> = Pedido.fetchRequest()
-        let predicate = NSPredicate(format: "id = %@", pedido.id ?? "")
+        let predicate = NSPredicate(format: "id = %@", pedido.idped ?? "")
         fetchRequest.predicate = predicate
 
 
