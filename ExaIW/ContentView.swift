@@ -16,7 +16,7 @@ struct ContentView: View {
     @State var estado = ""
     @State var fechaentrega = ""
     @State var total = ""
-    @State var newcodigo = ""
+    @State var newpedid = ""
     @State var newarticulo = ""
     @State var newcliente = ""
     @State var newdireccion = ""
@@ -40,7 +40,7 @@ struct ContentView: View {
         NavigationView{
             VStack{
                 NavigationLink(destination: VStack{
-                    TextField("ID", text: self.$codigo).multilineTextAlignment(.center)
+                    TextField("ID", text: self.$newpedid).multilineTextAlignment(.center)
                     TextField("Articulo", text: self.$newarticulo).multilineTextAlignment(.center)
                     TextField("Cliente", text: self.$newcliente).multilineTextAlignment(.center)
                     TextField("Direccion", text: self.$newdireccion).multilineTextAlignment(.center)
@@ -49,8 +49,8 @@ struct ContentView: View {
                     TextField("Total", text: self.$newtotal).multilineTextAlignment(.center)
 
                     Button("Guardar"){
-                        coreDM.guardarPedido(codigo: newcodigo, articulo: newarticulo, cliente: newcliente, direccion: newdireccion, estado: newestado, fechaentrega: newfechaentrega, total: newtotal)
-                        newcodigo = ""
+                        coreDM.guardarPedido(codigo: newpedid, articulo: newarticulo, cliente: newcliente, direccion: newdireccion, estado: newestado, fechaentrega: newfechaentrega, total: newtotal)
+                        newpedid = ""
                         newarticulo = ""
                         newcliente = ""
                         newdireccion = ""
@@ -89,10 +89,43 @@ struct ContentView: View {
                             ped.total ?? ""
                             isTapped.toggle()
                         }
-                    }
-                    
+                    }.onDelete(perform: {
+                        indexSet in
+                        indexSet.forEach({ index in
+                        let pedido = prodArray[index]
+                            coreDM.borrarPedido(pedido: pedido)
+                        mostrarPedido()
+                        })
+                    })
                 }.padding()
                     .onAppear(perform: {mostrarPedido()})
+                NavigationLink("",destination: VStack{
+                                TextField("ID", text: self.$codigoped).multilineTextAlignment(.center)
+                                TextField("Articulo", text: self.$articuloped).multilineTextAlignment(.center)
+                                TextField("Cliente", text: self.$clienteped).multilineTextAlignment(.center)
+                                TextField("Direccion", text: self.$direccionped).multilineTextAlignment(.center)
+                                TextField("Estado", text: self.$estadoped).multilineTextAlignment(.center)
+                                TextField("Fecha Entrega", text: self.$fechaentregaped).multilineTextAlignment(.center)
+                                TextField("Total", text: self.$totalped).multilineTextAlignment(.center)
+                                   Button("Actualizar"){
+                                       seleccionado?.idped = codigoped
+                                       seleccionado?.articulo = articuloped
+                                       seleccionado?.cliente = clienteped
+                                       seleccionado?.direccion = direccionped
+                                       seleccionado?.estado = estadoped
+                                       seleccionado?.fechaentrega = fechaentregaped
+                                       seleccionado?.total = totalped
+                                       coreDM.actualizarpedido(pedido: seleccionado!)
+                                       codigoped = ""
+                                       articuloped = ""
+                                       clienteped = ""
+                                       direccionped = ""
+                                       estadoped = ""
+                                       fechaentregaped = ""
+                                       totalped = ""
+                                       mostrarPedido()
+                                   }
+                               }, isActive: $isTapped)
             }
         }
     }

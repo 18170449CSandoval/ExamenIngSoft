@@ -33,7 +33,7 @@ class CoreDataManager{
 
         do{
             try persistentContainer.viewContext.save()
-            print("producto guardado")
+            print("pedido guardado")
         }
         catch{
             print("failed to save error")
@@ -64,7 +64,7 @@ class CoreDataManager{
 
     func actualizarpedido(pedido: Pedido){
         let fetchRequest: NSFetchRequest<Pedido> = Pedido.fetchRequest()
-        let predicate = NSPredicate(format: "id = %@", pedido.idped ?? "")
+        let predicate = NSPredicate(format: "idped = %@", pedido.idped ?? "")
         fetchRequest.predicate = predicate
 
 
@@ -80,7 +80,7 @@ class CoreDataManager{
             
             //Segui asi con los demas atributos
             try persistentContainer.viewContext.save()
-            print("pedido guardado")
+            print("pedido actualizado")
         }catch{
             print("failed to save error en \(error)")
         }
